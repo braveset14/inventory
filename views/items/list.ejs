@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= category.name %> · Inventory</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar"><div class="app-shell topbar-inner"><a class="brand" href="/"><span class="brand-mark">▦</span><span class="brand-name">Inventory</span></a><a class="topbar-link" href="/">All categories</a></div></header>
+  <main class="app-shell"><div class="page-heading"><a class="back-link" href="/">← Back to categories</a><p class="eyebrow" style="margin-top:24px">Category</p><h1><%= category.name %></h1><p class="subtitle">Manage the items currently in this category.</p></div>
+
+  <div class="toolbar"><span class="muted"><%= items.length %> item<%= items.length === 1 ? '' : 's' %></span><a class="button" href="/categories/<%= category.id %>/items/new">+ Add item</a></div>
+
+  <% if (items.length === 0) { %>
+    <section class="card empty-state"><strong>No items yet</strong><p>Add an item to start tracking stock in this category.</p><a class="button" href="/categories/<%= category.id %>/items/new">Add item</a></section>
+  <% } else { %>
+    <section class="card table-wrap"><table>
+      <thead>
+        <tr>
+          <th>Name</th><th>Type</th><th>Price</th>
+          <th>Amount</th><th>Expiry</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% items.forEach(function(item) { %>
+          <tr>
+            <td class="item-name"><%= item.name %></td>
+            <td class="muted"><%= item.type || '—' %></td>
+            <td><%= item.price %></td>
+            <td><%= item.amount %></td>
+            <td><%= item.expiry_date ? item.expiry_date.toISOString().slice(0,10) : '—' %></td>
+            <td>
+              <div class="table-actions"><form class="inline-form" action="/categories/<%= category.id %>/items/<%= item.id %>/delete" method="POST"><button class="button-danger" type="submit">Delete</button></form><a href="/categories/<%= category.id %>/items/<%= item.id %>/edit">Edit</a></div>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table></section>
+  <% } %>
+</main></body>
+</html>

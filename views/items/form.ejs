@@ -1,0 +1,11 @@
+<!DOCTYPE html><html><head><title><%= item ? 'Edit item' : 'New item' %> · Inventory</title><link rel="stylesheet" href="/style.css"></head><body><header class="topbar"><div class="app-shell topbar-inner"><a class="brand" href="/"><span class="brand-mark">▦</span><span class="brand-name">Inventory</span></a><a class="topbar-link" href="/categories/<%= category.id %>/items">Back to items</a></div></header><main class="app-shell"><div class="page-heading"><p class="eyebrow">Items · <%= category.name %></p><h1><%= item ? 'Edit item' : 'New item' %></h1><p class="subtitle">Add the details used to track this item.</p></div><section class="card form-card">
+
+<form action="<%= item ? '/categories/' + category.id + '/items/' + item.id : '/categories/' + category.id + '/items' %>" method="POST">
+  <label>Name <input type="text" name="name" value="<%= item ? item.name : '' %>" required></label>
+  <label>Type <input type="text" name="type" value="<%= item && item.type ? item.type : '' %>"></label>
+  <label>Price <input type="number" step="0.01" name="price" value="<%= item ? item.price : '' %>" required></label>
+  <label>Amount <input type="number" name="amount" value="<%= item ? item.amount : '' %>" required></label>
+  <label>Expiry <input type="date" name="expiry_date" value="<%= item && item.expiry_date ? item.expiry_date.toISOString().slice(0,10) : '' %>"></label>
+  <div class="form-actions"><button type="submit">Save item</button><a class="back-link" href="/categories/<%= category.id %>/items">Cancel</a></div>
+</form>
+</section></main></body></html>

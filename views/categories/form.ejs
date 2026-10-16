@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= category ? 'Edit category' : 'New category' %> · Inventory</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar"><div class="app-shell topbar-inner"><a class="brand" href="/"><span class="brand-mark">▦</span><span class="brand-name">Inventory</span></a><a class="topbar-link" href="/">Back to categories</a></div></header><main class="app-shell"><div class="page-heading"><p class="eyebrow">Categories</p><h1><%= category ? 'Edit category' : 'New category' %></h1><p class="subtitle">Use a clear name to keep your inventory easy to browse.</p></div><section class="card form-card"><form action="<%= category ? '/categories/' + category.id : '/categories' %>" method="POST">
+    <label>
+      Name
+      <input type="text" name="name"  value="<%= category ? category.name : '' %>"  required>
+    </label>
+    <div class="form-actions"><button type="submit">Save category</button><a class="back-link" href="/">Cancel</a></div>
+  </form></section></main>
+</body>
+</html>
